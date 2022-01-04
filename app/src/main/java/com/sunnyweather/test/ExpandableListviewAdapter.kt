@@ -13,11 +13,11 @@ import android.widget.Toast
  * 2017-09-06 09:59
  */
 class MyAdapter(
-        private var mContext : Context,
-        /** group 数据 */
-        private var groupList: ArrayList<String>,
-        /** child 数据 */
-        private var childList : ArrayList<ArrayList<String>>) : BaseExpandableListAdapter() {
+    private var mContext : Context,
+    /** group 数据 */
+    private var groupList: ArrayList<String>,
+    /** child 数据 */
+    private var childList : ArrayList<ArrayList<Map.Entry<String, String>>>) : BaseExpandableListAdapter() {
 
     override fun getGroup(groupPosition: Int): Any {
         return groupPosition
@@ -39,8 +39,8 @@ class MyAdapter(
         val groupName = groupView.findViewById<TextView>(R.id.groupTvName)
         groupName.text = groupList[groupPosition]
         /** 子元素个数 */
-        val count = groupView.findViewById<TextView>(R.id.groupTvCount)
-        count.text = "${childList[groupPosition].size} 个"
+//        val count = groupView.findViewById<TextView>(R.id.groupTvCount)
+//        count.text = "${childList[groupPosition].size} 个"
 
         return groupView
     }
@@ -63,7 +63,9 @@ class MyAdapter(
     override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, view: View?, viewGroup: ViewGroup?): View {
         val childView = View.inflate(mContext, R.layout.content_view, null)
         val username = childView.findViewById<TextView>(R.id.childTvUserName)
-        username.text = childList[groupPosition][childPosition]
+        username.text = childList[groupPosition][childPosition].key
+        val childTvNet = childView.findViewById<TextView>(R.id.childTvNet)
+        childTvNet.text = childList[groupPosition][childPosition].value
         return childView
     }
 
