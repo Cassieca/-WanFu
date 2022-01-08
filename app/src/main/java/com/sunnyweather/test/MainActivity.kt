@@ -6,11 +6,12 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ExpandableListView
 import androidx.appcompat.app.AppCompatActivity
+import com.sunnyweather.test.model.qaa
 
 class MainActivity : AppCompatActivity() {
 
     private var groupList = ArrayList<String>()
-    private var childList =  ArrayList<ArrayList<Map.Entry<String, String>>> ()
+    private var childList =  ArrayList<ArrayList<qaa>> ()
     val dbHelper = MyDatabaseHelper(this, "VisitRecord.db", 1)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,18 +57,14 @@ class MainActivity : AppCompatActivity() {
         val cursor = db.query("Visited", null, null, null, null, null, null)
         if (cursor.moveToFirst()) {
             do {
-                val map = HashMap<String, String>()
                 // 遍历Cursor对象，取出数据
                 val name = cursor.getString(cursor.getColumnIndex("name"))
                 val author = cursor.getString(cursor.getColumnIndex("phone"))
                 val pages = cursor.getString(cursor.getColumnIndex("club"))
-                map.put("被访人姓名","$name")
-                map.put("被访人手机","$author")
-                map.put("被访人部门","$pages")
-                val item=ArrayList<Map.Entry<String, String>>()
-                for(a in map){
-                    item.add(a)
-                }
+                val item=ArrayList<qaa>()
+                item.add(qaa("被访人姓名","$name"))
+                item.add(qaa("被访人手机","$author"))
+                item.add(qaa("被访人部门","$pages"))
                 groupList.add("被访人信息")
                 childList.add(item)
             } while (cursor.moveToNext())
@@ -76,7 +73,6 @@ class MainActivity : AppCompatActivity() {
         val cursor2 = db.query("Visitor", null, null, null, null, null, null)
         if (cursor2.moveToFirst()) {
             do {
-                val map = HashMap<String, String>()
                 // 遍历Cursor对象，取出数据
                 val name = cursor2.getString(cursor2.getColumnIndex("name"))
                 val phone = cursor2.getString(cursor2.getColumnIndex("phone"))
@@ -84,18 +80,15 @@ class MainActivity : AppCompatActivity() {
                 val IDNumber = cursor2.getString(cursor2.getColumnIndex("IDNumber"))
                 val sex = cursor2.getString(cursor2.getColumnIndex("sex"))
                 val carNo = cursor2.getString(cursor2.getColumnIndex("carNo"))
-                map.put("访客姓名","$name")
-                map.put("访客手机","$phone")
-                map.put("所在公司","$company")
-                map.put("证件号码","$IDNumber")
-                map.put("性别","$sex")
-                map.put("车牌号码","$carNo")
-                val item2=ArrayList<Map.Entry<String, String>>()
-                for(a in map){
-                    item2.add(a)
-                }
+                val item=ArrayList<qaa>()
+                item.add(qaa("被访人姓名","$name"))
+                item.add(qaa("访客手机","$phone"))
+                item.add(qaa("所在公司","$company"))
+                item.add(qaa("证件号码","$IDNumber"))
+                item.add(qaa("性别","$sex"))
+                item.add(qaa("车牌号码","$carNo"))
                 groupList.add("访客信息")
-                childList.add(item2)
+                childList.add(item)
             } while (cursor2.moveToNext())
         }
         cursor2.close()

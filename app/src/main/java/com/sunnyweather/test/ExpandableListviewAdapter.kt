@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
+import com.sunnyweather.test.model.qaa
 
 /**
  * WenyiFeng(xfsy2014@gmail.com)
@@ -15,7 +16,7 @@ class MyAdapter(
     /** group 数据 */
     private var groupList: ArrayList<String>,
     /** child 数据 */
-    private var childList : ArrayList<ArrayList<Map.Entry<String, String>>>) : BaseExpandableListAdapter() {
+    private var childList : ArrayList<ArrayList<qaa>>) : BaseExpandableListAdapter() {
 
     override fun getGroup(groupPosition: Int): Any {
         return groupPosition
@@ -61,9 +62,9 @@ class MyAdapter(
     override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, view: View?, viewGroup: ViewGroup?): View {
         val childView = View.inflate(mContext, R.layout.content_view, null)
         val question = childView.findViewById<TextView>(R.id.question)
-        question.text = "${childList[groupPosition][childPosition].key}  ："
+        question.text = "${childList[groupPosition][childPosition].question}  ："
         val answer = childView.findViewById<TextView>(R.id.answer)
-        answer.text = childList[groupPosition][childPosition].value
+        answer.text = childList[groupPosition][childPosition].answer
         return childView
     }
 
