@@ -12,6 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
         android:gravity="center"
+        android:textSize="16sp"
         android:text="我的好友"
         android:textColor="#009FAF"/>
     <ImageView

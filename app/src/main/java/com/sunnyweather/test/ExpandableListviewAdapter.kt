@@ -1,12 +1,10 @@
 package com.sunnyweather.test
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
-import android.widget.Toast
 
 /**
  * WenyiFeng(xfsy2014@gmail.com)
@@ -62,10 +60,10 @@ class MyAdapter(
 
     override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, view: View?, viewGroup: ViewGroup?): View {
         val childView = View.inflate(mContext, R.layout.content_view, null)
-        val username = childView.findViewById<TextView>(R.id.childTvUserName)
-        username.text = childList[groupPosition][childPosition].key
-        val childTvNet = childView.findViewById<TextView>(R.id.childTvNet)
-        childTvNet.text = childList[groupPosition][childPosition].value
+        val question = childView.findViewById<TextView>(R.id.question)
+        question.text = "${childList[groupPosition][childPosition].key}  ："
+        val answer = childView.findViewById<TextView>(R.id.answer)
+        answer.text = childList[groupPosition][childPosition].value
         return childView
     }
 
