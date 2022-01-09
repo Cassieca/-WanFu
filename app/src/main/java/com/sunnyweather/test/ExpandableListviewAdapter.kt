@@ -7,10 +7,6 @@ import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
 import com.sunnyweather.test.model.qaa
 
-/**
- * WenyiFeng(xfsy2014@gmail.com)
- * 2017-09-06 09:59
- */
 class MyAdapter(
     private var mContext : Context,
     /** group 数据 */

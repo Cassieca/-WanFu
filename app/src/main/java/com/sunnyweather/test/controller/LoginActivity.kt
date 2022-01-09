@@ -1,59 +1,57 @@
-package com.sunnyweather.test
+package com.sunnyweather.test.controller
 
 import android.content.ContentValues
-import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.ExpandableListView
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import com.sunnyweather.test.R
+import com.sunnyweather.test.dao.MyDatabaseHelper
+import com.sunnyweather.test.model.ListModel
 import com.sunnyweather.test.model.qaa
 
-class MainActivity : AppCompatActivity() {
-
-    private var groupList = ArrayList<String>()
-    private var childList =  ArrayList<ArrayList<qaa>> ()
+class LoginActivity : AppCompatActivity() {
     val dbHelper = MyDatabaseHelper(this, "VisitRecord.db", 1)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        init()
-    }
+        setContentView(R.layout.activity_login)
 
-    private fun init() {
-        if(childList.isEmpty()){
-            dbHelper.writableDatabase
-            val db = dbHelper.writableDatabase
-            val values1 = ContentValues().apply {
-                // 开始组装第一条数据
-                put("name", "kk")
-                put("phone", "15812222222")
-                put("club", "希望工程")
-            }
-            db.insert("Visited", null, values1) // 插入第一条数据
-            val values2 = ContentValues().apply {
-                // 开始组装第二条数据
-                put("name", "zz")
-                put("phone", "15813332222")
-                put("company", "梦想工程")
-                put("IDNumber", "440222222222222229")
-                put("sex", "女")
-                put("carNo", "粤D8888")
-            }
-            db.insert("Visitor", null, values2) // 插入第二条数据
+        val loginBtn: Button = findViewById(R.id.loginBtn)
+        loginBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
-        initData()
-        val adapter = MyAdapter(this, groupList , childList)
-        val expendableListview = findViewById<ExpandableListView>(R.id.expendableListview)
-        expendableListview.setAdapter(adapter)
-        val width = windowManager.defaultDisplay.width
-        expendableListview.setIndicatorBounds(width - 40, width - 10)
+        val createDb: Button = findViewById(R.id.createDb)
+        createDb.setOnClickListener {
+            dbAddData()
+            ListModelAddData()
+        }
     }
 
-    private fun initData() {
+    private fun dbAddData(){
+        val db = dbHelper.writableDatabase
+        val values1 = ContentValues().apply {
+            // 开始组装第一条数据
+            put("name", "kk")
+            put("phone", "15812222222")
+            put("club", "希望工程")
+        }
+        db.insert("Visited", null, values1) // 插入第一条数据
+        val values2 = ContentValues().apply {
+            // 开始组装第二条数据
+            put("name", "zz")
+            put("phone", "15813332222")
+            put("company", "梦想工程")
+            put("IDNumber", "440222222222222229")
+            put("sex", "女")
+            put("carNo", "粤D8888")
+        }
+        db.insert("Visitor", null, values2) // 插入第二条数据
+    }
+    private fun ListModelAddData(){
         val db = dbHelper.writableDatabase
         // 查询Visited表中所有的数据
-
         val cursor = db.query("Visited", null, null, null, null, null, null)
         if (cursor.moveToFirst()) {
             do {
@@ -65,8 +63,8 @@ class MainActivity : AppCompatActivity() {
                 item.add(qaa("被访人姓名","$name"))
                 item.add(qaa("被访人手机","$author"))
                 item.add(qaa("被访人部门","$pages"))
-                groupList.add("被访人信息")
-                childList.add(item)
+                ListModel.groupList.add("被访人信息")
+                ListModel.childList.add(item)
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -87,8 +85,8 @@ class MainActivity : AppCompatActivity() {
                 item.add(qaa("证件号码","$IDNumber"))
                 item.add(qaa("性别","$sex"))
                 item.add(qaa("车牌号码","$carNo"))
-                groupList.add("访客信息")
-                childList.add(item)
+                ListModel.groupList.add("访客信息")
+                ListModel.childList.add(item)
             } while (cursor2.moveToNext())
         }
         cursor2.close()

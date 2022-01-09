@@ -1,4 +1,4 @@
-package com.sunnyweather.test
+package com.sunnyweather.test.dao
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

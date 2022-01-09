@@ -11,9 +11,9 @@
         android:theme="@style/Theme.Test"
         xmlns:tools="http://schemas.android.com/tools"
         tools:replace="android:theme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".controller.MainActivity">
         </activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".controller.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
